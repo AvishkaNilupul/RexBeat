@@ -36,8 +36,6 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable, ListController.SongClickListener {
 
-    //testgitssssssssadad
-
     @FXML
     public TextField searchtxt;
     public Label songName, Artist, SongLabel;
