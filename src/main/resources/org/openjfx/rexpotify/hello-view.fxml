@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="parent" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.rexpotify.Controllers.Controller">
+
+   <children>
+      <HBox alignment="CENTER" layoutX="1018.0" layoutY="12.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label text="Avishka" textFill="WHITE">
+               <font>
+                  <Font name="Microsoft PhagsPa Bold" size="25.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="50.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" styleClass="userimg">
+               <image>
+                  <Image url="@../../../../../../../../../Downloads/image.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox fx:id="searchbox1" alignment="CENTER_LEFT" layoutX="496.0" prefHeight="72.0" prefWidth="319.0" spacing="20.0">
+         <children>
+            <TextField fx:id="searchtxt" prefHeight="33.0" prefWidth="214.0" promptText="Search" styleClass="textsearch" stylesheets="@Style.css" />
+            <Button fx:id="searchbtn" mnemonicParsing="false" onAction="#searchbtn" prefHeight="57.0" prefWidth="40.0" styleClass="search">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="3em" styleClass="search" wrappingWidth="39.57143020629883" />
+               </graphic>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="30.0" />
+         </padding>
+      </HBox>
+      <Pane layoutX="14.0" layoutY="229.0" prefHeight="330.0" prefWidth="258.0" styleClass="sidebar" stylesheets="@Style.css">
+         <children>
+            <HBox alignment="CENTER" layoutX="29.0" layoutY="14.0" prefHeight="57.0" prefWidth="200.0">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="3em" />
+                  <Button fx:id="LIbrary" mnemonicParsing="false" onAction="#LIbrary" styleClass="search" text="Library" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Pane layoutX="14.0" layoutY="26.0" prefHeight="191.0" prefWidth="258.0" styleClass="sidebar" stylesheets="@Style.css">
+         <children>
+            <HBox alignment="CENTER" layoutX="29.0" layoutY="31.0" prefHeight="57.0" prefWidth="200.0">
+               <children>
+                  <FontAwesomeIconView fill="#e3e3e3" glyphName="HOME" size="4em" />
+                  <Button mnemonicParsing="false" styleClass="search" text="Home" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="32.0" layoutY="96.0" prefHeight="57.0" prefWidth="200.0" styleClass="search1">
+               <children>
+                  <FontAwesomeIconView fill="#e3e3e3" glyphName="SEARCH" selectionFill="#e5e5e5" size="3.9EM" />
+                  <Button fx:id="searchbtn1" mnemonicParsing="false" onAction="#searchbtn1" styleClass="search" text="Search">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Pane fx:id="artistpane" layoutX="298.0" layoutY="70.0" prefHeight="496.0" prefWidth="980.0">
+         <children>
+            <ScrollPane prefHeight="496.0" prefWidth="973.0" style="-fx-background-color: #1C1C1C;" styleClass="scrollpane">
+               <content>
+                  <Pane prefHeight="617.0" prefWidth="1008.0" styleClass="searchpane" stylesheets="@Style.css">
+                     <children>
+                        <HBox alignment="CENTER" layoutY="79.0" prefHeight="232.0" prefWidth="798.0" spacing="30.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="390.0" prefWidth="195.0" spacing="20.0" styleClass="panebox">
+                                 <children>
+                                    <ImageView fx:id="artistp1" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../java/org/openjfx/rexpotify/icons/ariana.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Ariana Grande" textFill="WHITE">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="390.0" prefWidth="195.0" spacing="20.0" styleClass="panebox">
+                                 <children>
+                                    <ImageView fx:id="artistp2" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../java/org/openjfx/rexpotify/icons/ariana.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Ariana Grande" textFill="WHITE">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="390.0" prefWidth="195.0" spacing="20.0" styleClass="panebox">
+                                 <children>
+                                    <ImageView fx:id="artistp3" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../java/org/openjfx/rexpotify/icons/ariana.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Ariana Grande" textFill="WHITE">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="390.0" prefWidth="195.0" spacing="20.0" styleClass="panebox">
+                                 <children>
+                                    <ImageView fx:id="artistp4" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../java/org/openjfx/rexpotify/icons/ariana.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Ariana Grande" textFill="WHITE">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Label layoutY="29.0" prefHeight="24.0" prefWidth="175.0" text="Top Artists" textFill="WHITE">
+                           <font>
+                              <Font name="Microsoft PhagsPa Bold" size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
+      <Pane fx:id="searchpane" layoutX="298.0" layoutY="73.0" prefHeight="496.0" prefWidth="980.0" styleClass="searchpane">
+         <children>
+            <VBox alignment="CENTER" layoutX="34.0" layoutY="32.0" prefHeight="219.0" prefWidth="175.0" styleClass="panebox">
+               <children>
+                  <ImageView fx:id="mainArtist" fitHeight="191.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../java/org/openjfx/rexpotify/icons/lexi.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="224.0" layoutY="22.0" prefHeight="210.0" prefWidth="243.0" spacing="20.0">
+               <children>
+                  <Label fx:id="songName" prefHeight="39.0" prefWidth="212.0" style="-fx-alignment: center;" text="Fortuna" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="Microsoft PhagsPa Bold" size="32.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Artist" prefHeight="24.0" prefWidth="134.0" style="-fx-alignment: center;" text="Lexi Liu" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Microsoft PhagsPa" size="17.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="addToLib" mnemonicParsing="false" onAction="#addToLib" styleClass="search" text="Add To List" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" layoutX="59.0" layoutY="343.0" prefHeight="47.0" prefWidth="258.0" spacing="30.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../../Downloads/images.jpeg" />
+                     </image>
+                  </ImageView>
+                  <Label text="Song name" textFill="WHITE">
+                     <font>
+                        <Font name="Microsoft PhagsPa Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="3em" />
+               </children>
+            </HBox>
+            <VBox layoutX="551.0" layoutY="47.0" prefHeight="409.0" prefWidth="347.0" spacing="50.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="308.0" spacing="30.0">
+                     <children>
+                        <ImageView fitHeight="56.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Downloads/images.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="rsong1" text="Song name" textFill="WHITE">
+                           <font>
+                              <Font name="Microsoft PhagsPa Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="3em" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="327.0" spacing="30.0">
+                     <children>
+                        <ImageView fitHeight="56.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Downloads/images.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="rsong2" text="Song name" textFill="WHITE">
+                           <font>
+                              <Font name="Microsoft PhagsPa Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="3em" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="308.0" spacing="30.0">
+                     <children>
+                        <ImageView fitHeight="56.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Downloads/images.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="rsong3" text="Song name" textFill="WHITE">
+                           <font>
+                              <Font name="Microsoft PhagsPa Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="3em" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="308.0" spacing="30.0">
+                     <children>
+                        <ImageView fitHeight="56.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Downloads/images.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="rsong4" text="Song name" textFill="WHITE">
+                           <font>
+                              <Font name="Microsoft PhagsPa Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="3em" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" layoutX="59.0" layoutY="399.0" prefHeight="47.0" prefWidth="258.0" spacing="30.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../../Downloads/images.jpeg" />
+                     </image>
+                  </ImageView>
+                  <Label text="Song name" textFill="WHITE">
+                     <font>
+                        <Font name="Microsoft PhagsPa Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="3em" />
+               </children>
+            </HBox>
+            <Label fx:id="songName1" layoutX="54.0" layoutY="284.0" prefHeight="33.0" prefWidth="268.0" style="-fx-alignment: center;" text="Top songs by Artist" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+               <font>
+                  <Font name="Microsoft PhagsPa Bold" size="26.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="librarryPane" layoutX="289.0" prefHeight="565.0" prefWidth="991.0" styleClass="parent" stylesheets="@Style.css">
+         <children>
+            <ScrollPane layoutX="72.0" layoutY="124.0" prefHeight="427.0" prefWidth="848.0" style="-fx-background-color: #1C1C1C;">
+               <content>
+                  <VBox fx:id="listView" alignment="CENTER" prefHeight="82.0" prefWidth="842.0" style="-fx-background-color: #1C1C1C;" />
+               </content>
+            </ScrollPane>
+            <HBox alignment="CENTER_LEFT" layoutX="72.0" layoutY="61.0" prefHeight="63.0" prefWidth="848.0" style="-fx-background-color: #1C1C1C;">
+               <children>
+                  <Label fx:id="songName11" prefHeight="33.0" prefWidth="268.0" style="-fx-alignment: center;" text="Title" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="Microsoft PhagsPa Bold" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="songName111" prefHeight="33.0" prefWidth="268.0" style="-fx-alignment: center;" text="Artist" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="Microsoft PhagsPa Bold" size="26.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SPINNER" size="2.5em" textAlignment="RIGHT">
+                     <HBox.margin>
+                        <Insets left="115.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Pane layoutX="-6.0" layoutY="570.0" prefHeight="150.0" prefWidth="1286.0" styleClass="botbar" stylesheets="@Style.css">
+         <children>
+            <Button fx:id="forward" layoutX="685.0" layoutY="85.0" mnemonicParsing="false" onAction="#forward" prefHeight="39.0" prefWidth="71.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="FORWARD" />
+               </graphic>
+            </Button>
+            <Button fx:id="playButton" layoutX="608.0" layoutY="85.0" mnemonicParsing="false" onAction="#playButton" prefHeight="39.0" prefWidth="71.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PLAY" />
+               </graphic></Button>
+            <Label fx:id="SongLabel" alignment="CENTER" layoutX="499.0" layoutY="14.0" prefHeight="39.0" prefWidth="288.0" text="Song" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
+            <ProgressBar layoutX="434.0" layoutY="60.0" prefHeight="18.0" prefWidth="419.0" progress="0.0" />
+            <Button fx:id="backwards" layoutX="528.0" layoutY="85.0" mnemonicParsing="false" onAction="#backwards" prefHeight="39.0" prefWidth="71.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="BACKWARD" />
+               </graphic>
+            </Button>
+         </children></Pane>
+   </children>
+</AnchorPane>
