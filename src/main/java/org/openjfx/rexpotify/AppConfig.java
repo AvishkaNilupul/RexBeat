@@ -7,6 +7,7 @@ public class AppConfig {
 
     // Specify the location of the config file outside the JAR
     //public static final String CONFIG_FILE_PATH = "config" + File.separator + "config.properties";
+    //Test on project
     public static final String CONFIG_FILE_PATH = "C:\\Users\\Avishka\\Documents\\JavaApplications\\Rexpotify\\src\\main\\resources\\config.properties";
 
     public static void saveConfig(String keyPrefix, String songName, String songLink, String songDest) {

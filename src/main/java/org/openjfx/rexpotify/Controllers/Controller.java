@@ -36,6 +36,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable, ListController.SongClickListener {
 
+
     @FXML
     public TextField searchtxt;
     public Label songName, Artist, SongLabel;
@@ -48,7 +49,7 @@ public class Controller implements Initializable, ListController.SongClickListen
     @FXML
     private ImageView mainArtist, artistp1, artistp2, artistp3, artistp4;
     @FXML
-    private Pane searchpane, artistpane;
+    private Pane searchpane, artistpane,networkPane;
     @FXML
     private Button searchbtn1, searchbtn;
     @FXML
@@ -152,7 +153,8 @@ public class Controller implements Initializable, ListController.SongClickListen
                 // api
                 ApiHandler apiHandler = new ApiHandler();
                 ApiResponseParser responseParser = new ApiResponseParser();
-                String apiUrl = "http://localhost:8080/api/songs/by-song-name/" + text;
+                String apiUrl = "http://157.245.148.29:8080/api/songs/by-song-name/" + text;
+                //http://157.245.148.29:8080/api/songs/by-song-name/side
                 String apiResponse = apiHandler.makeApiRequest(apiUrl);
 
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -197,9 +199,25 @@ public class Controller implements Initializable, ListController.SongClickListen
     }
 
     public void searchbtn1(ActionEvent event) {
-        if (event.getSource() == searchbtn1) {
-            artistpane.toFront();
-            searchbox1.toFront();
+        if (isInternetAvailable()){
+            if (event.getSource() == searchbtn1) {
+                artistpane.toFront();
+                searchbox1.toFront();
+            }
+        }else {
+            networkPane.toFront();
+        }
+    }
+    public boolean isInternetAvailable(){
+        try{
+            URL url = new URL("http://157.245.148.29:8080/api/songs/by-song-name/test");
+            URLConnection connection = url.openConnection();
+            connection.connect();
+            return true;
+
+        }catch (Exception e){
+            return false;
+
         }
     }
 
@@ -341,6 +359,24 @@ public class Controller implements Initializable, ListController.SongClickListen
             System.out.println("No songs in the list or current song name is null.");
         }
     }
+    public void backwards(ActionEvent event) {
+        if (TestAdd != null && currentSongName != null) {
+            System.out.println("Current Song Name: " + currentSongName);
+            int currentIndex = getCurrentSongIndex();
+            System.out.println("Current Index: " + currentIndex);
+
+            if (currentIndex != -1 && currentIndex > 0) {
+                String previousSongName = TestAdd.get(currentIndex - 1).getName();
+                System.out.println("Previous Song Name: " + previousSongName);
+                playSongByName(previousSongName);
+            } else {
+                System.out.println("No previous song available.");
+            }
+        } else {
+            System.out.println("No songs in the list or current song name is null.");
+        }
+    }
+
 
 
     private int getCurrentSongIndex() {
@@ -371,8 +407,6 @@ public class Controller implements Initializable, ListController.SongClickListen
 
 
 
-    public void backwards(ActionEvent event) {
-    }
     public void playButton(ActionEvent event) {
         boolean playing = mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING);
         if (playing){
