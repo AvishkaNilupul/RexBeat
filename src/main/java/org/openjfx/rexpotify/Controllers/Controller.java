@@ -3,12 +3,15 @@ package org.openjfx.rexpotify.Controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +23,8 @@ import javafx.scene.media.MediaPlayer;
 import org.openjfx.rexpotify.Api.ApiHandler;
 import org.openjfx.rexpotify.Api.ApiResponseParser;
 import org.openjfx.rexpotify.AppConfig;
+import org.openjfx.rexpotify.downloaders.RapidApiResponse;
+import org.openjfx.rexpotify.downloaders.VideoInfoCallback;
 import org.openjfx.rexpotify.models.Slist;
 import org.openjfx.rexpotify.models.Song;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -34,17 +39,20 @@ import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable, ListController.SongClickListener {
+public class Controller implements Initializable, ListController.SongClickListener,RapidApiResponse.VideoInfoCallback {
 
 
     @FXML
-    public TextField searchtxt;
+    public TextField searchtxt,ytLink;
     public Label songName, Artist, SongLabel;
-    public Label rsong1, rsong2, rsong3, rsong4;
+    public Label rsong1, rsong2, rsong3, rsong4,songtitle;
     public HBox searchbox1;
     public Pane librarryPane;
     public Button addToLib;
     public Button playButton;
+    public Button exDownload;
+    public Pane oDownloads;
+    public Slider volumeSlider;
 
     @FXML
     private ImageView mainArtist, artistp1, artistp2, artistp3, artistp4;
@@ -97,6 +105,13 @@ public class Controller implements Initializable, ListController.SongClickListen
         }
 
         load();
+        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                mediaPlayer.setVolume(volumeSlider.getValue()*0.01);
+
+            }
+        });
     }
 
 
@@ -209,6 +224,7 @@ public class Controller implements Initializable, ListController.SongClickListen
         }
     }
     public boolean isInternetAvailable(){
+        //Check if network available or not 
         try{
             URL url = new URL("http://157.245.148.29:8080/api/songs/by-song-name/test");
             URLConnection connection = url.openConnection();
@@ -422,4 +438,48 @@ public class Controller implements Initializable, ListController.SongClickListen
         }
     }
 
+    public void ytdownload(ActionEvent event) {
+        RapidApiResponse.extractVideoInfo(ytLink.getText(), this);
+    }
+
+    @Override
+    public void onVideoInfoReceived(RapidApiResponse response) throws URISyntaxException {
+        songtitle.setText(response.getTitle());
+        if (response.getTitle() != null) {
+            String songNameToAdd = response.getTitle();
+            String imageLinkToAdd = "NotAvailable";
+
+            String jarDir = new File(Controller.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getPath();
+
+            String destPath = jarDir + File.separator + "songs" + File.separator + songNameToAdd + ".mp3";
+
+            String directoryPath = destPath.substring(0, destPath.lastIndexOf(File.separator));
+
+            File directory = new File(directoryPath);
+            if (!directory.exists()) {
+                if (directory.mkdirs()) {
+                    System.out.println("Directory created: " + directoryPath);
+                } else {
+                    System.err.println("Failed to create directory: " + directoryPath);
+                }
+            }
+            try {
+                downloadSong(response.getLink(), destPath);
+                System.out.println("Song downloaded successfully!");
+            } catch (IOException e) {
+                System.err.println("Error downloading the song: " + e.getMessage());
+            }
+            AppConfig.saveConfig("song", songNameToAdd, imageLinkToAdd, destPath);
+
+
+        } else {
+            System.out.println("Song name is null or empty. Cannot save.");
+
+        }
+    }
+
+    public void exDownload(ActionEvent event) {
+        oDownloads.toFront();
+
+    }
 }

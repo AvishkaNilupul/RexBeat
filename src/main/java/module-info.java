@@ -5,6 +5,7 @@ module org.openjfx.rexpotify {
     requires com.fasterxml.jackson.databind;
     requires javafx.media;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires org.json;
 
     // Add the following line to require the automatic module of org.json
 

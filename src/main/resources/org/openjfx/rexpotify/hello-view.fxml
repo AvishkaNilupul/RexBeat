@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,6 +19,15 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="parent" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.rexpotify.Controllers.Controller">
 
    <children>
+      <Pane fx:id="networkPane" layoutX="299.0" layoutY="3.0" prefHeight="565.0" prefWidth="980.0" styleClass="parent" stylesheets="@Style.css">
+         <children>
+            <Label layoutX="151.0" layoutY="268.0" text="We are sorry there is a error with connecting with the server" textFill="WHITE">
+               <font>
+                  <Font name="Microsoft PhagsPa Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
       <HBox alignment="CENTER" layoutX="1018.0" layoutY="12.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
             <Label text="Avishka" textFill="WHITE">
@@ -45,7 +55,7 @@
             <Insets left="30.0" />
          </padding>
       </HBox>
-      <Pane layoutX="14.0" layoutY="229.0" prefHeight="330.0" prefWidth="258.0" styleClass="sidebar" stylesheets="@Style.css">
+      <Pane layoutX="14.0" layoutY="286.0" prefHeight="273.0" prefWidth="258.0" styleClass="sidebar" stylesheets="@Style.css">
          <children>
             <HBox alignment="CENTER" layoutX="29.0" layoutY="14.0" prefHeight="57.0" prefWidth="200.0">
                <children>
@@ -59,28 +69,42 @@
             </HBox>
          </children>
       </Pane>
-      <Pane layoutX="14.0" layoutY="26.0" prefHeight="191.0" prefWidth="258.0" styleClass="sidebar" stylesheets="@Style.css">
+      <Pane layoutX="14.0" layoutY="26.0" prefHeight="247.0" prefWidth="258.0" styleClass="sidebar" stylesheets="@Style.css">
          <children>
-            <HBox alignment="CENTER" layoutX="29.0" layoutY="31.0" prefHeight="57.0" prefWidth="200.0">
+            <VBox alignment="CENTER" layoutX="23.0" layoutY="24.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="212.0">
                <children>
-                  <FontAwesomeIconView fill="#e3e3e3" glyphName="HOME" size="4em" />
-                  <Button mnemonicParsing="false" styleClass="search" text="Home" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="25.0" />
-                     </font>
-                  </Button>
+                  <HBox prefHeight="57.0" prefWidth="200.0" styleClass="search1">
+                     <children>
+                        <FontAwesomeIconView fill="#e3e3e3" glyphName="SEARCH" selectionFill="#e5e5e5" size="3.9EM" />
+                        <Button fx:id="searchbtn1" mnemonicParsing="false" onAction="#searchbtn1" styleClass="search" text="Search">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="57.0" prefWidth="200.0">
+                     <children>
+                        <FontAwesomeIconView fill="#e3e3e3" glyphName="HOME" size="4em" />
+                        <Button mnemonicParsing="false" styleClass="search" text="Home" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="57.0" prefWidth="200.0" styleClass="search1">
+                     <children>
+                        <FontAwesomeIconView fill="#e3e3e3" glyphName="DOWNLOAD" selectionFill="#e5e5e5" size="3.9EM" />
+                        <Button fx:id="exDownload" mnemonicParsing="false" onAction="#exDownload" styleClass="search" text="Download">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="32.0" layoutY="96.0" prefHeight="57.0" prefWidth="200.0" styleClass="search1">
-               <children>
-                  <FontAwesomeIconView fill="#e3e3e3" glyphName="SEARCH" selectionFill="#e5e5e5" size="3.9EM" />
-                  <Button fx:id="searchbtn1" mnemonicParsing="false" onAction="#searchbtn1" styleClass="search" text="Search">
-                     <font>
-                        <Font name="System Bold" size="25.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+            </VBox>
          </children>
       </Pane>
       <Pane fx:id="artistpane" layoutX="298.0" layoutY="70.0" prefHeight="496.0" prefWidth="980.0">
@@ -341,12 +365,24 @@
                   <FontAwesomeIconView glyphName="BACKWARD" />
                </graphic>
             </Button>
+            <Slider fx:id="volumeSlider" layoutX="1094.0" layoutY="68.0" value="50.0" />
          </children></Pane>
-      <Pane fx:id="networkPane" layoutX="299.0" layoutY="3.0" prefHeight="565.0" prefWidth="980.0" styleClass="parent" stylesheets="@Style.css">
+      <Pane fx:id="oDownloads" layoutX="299.0" layoutY="10.0" prefHeight="558.0" prefWidth="980.0" styleClass="parent" stylesheets="@Style.css">
          <children>
-            <Label layoutX="151.0" layoutY="268.0" text="We are sorry there is a error with connecting with the server" textFill="WHITE">
+            <Button fx:id="ytdownload" layoutX="338.0" layoutY="110.0" mnemonicParsing="false" onAction="#ytdownload" styleClass="search" text="Download" textAlignment="CENTER">
                <font>
-                  <Font name="Microsoft PhagsPa Bold" size="24.0" />
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
+            <Label fx:id="songName112" layoutX="283.0" layoutY="24.0" prefHeight="33.0" prefWidth="268.0" style="-fx-alignment: center;" text="Add Youtube Link" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+               <font>
+                  <Font name="Microsoft PhagsPa Bold" size="26.0" />
+               </font>
+            </Label>
+            <TextField fx:id="ytLink" layoutX="132.0" layoutY="76.0" prefHeight="25.0" prefWidth="571.0" />
+            <Label fx:id="songtitle" layoutX="25.0" layoutY="166.0" prefHeight="33.0" prefWidth="785.0" style="-fx-alignment: center;" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+               <font>
+                  <Font name="Microsoft PhagsPa Bold" size="26.0" />
                </font>
             </Label>
          </children>
