@@ -5,14 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -34,10 +32,7 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Controller implements Initializable, ListController.SongClickListener,RapidApiResponse.VideoInfoCallback {
 
@@ -51,8 +46,11 @@ public class Controller implements Initializable, ListController.SongClickListen
     public Button addToLib;
     public Button playButton;
     public Button exDownload;
+    boolean run;
+    Timer timer;
     public Pane oDownloads;
     public Slider volumeSlider;
+    public ProgressBar songBar;
 
     @FXML
     private ImageView mainArtist, artistp1, artistp2, artistp3, artistp4;
@@ -70,6 +68,7 @@ public class Controller implements Initializable, ListController.SongClickListen
     private List<Slist> TestAdd;
 
     public static String Slink;
+    double currentVolume = 50;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -109,6 +108,7 @@ public class Controller implements Initializable, ListController.SongClickListen
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 mediaPlayer.setVolume(volumeSlider.getValue()*0.01);
+                currentVolume = mediaPlayer.getVolume();
 
             }
         });
@@ -302,6 +302,9 @@ public class Controller implements Initializable, ListController.SongClickListen
     @Override
     public void onSongClicked(String songName) {
         currentSongName = songName; // Set currentSongName when a song is clicked
+        FontAwesomeIconView iconView = (FontAwesomeIconView) playButton.getGraphic();
+        iconView.setGlyphName("PAUSE");
+
         if (this.mediaPlayer == null) {
 
         } else {
@@ -311,7 +314,6 @@ public class Controller implements Initializable, ListController.SongClickListen
         // Handle the song click event from the list
         String destPath = getDestPathFromConfig(songName);
         if (destPath != null) {
-            System.out.println("Destination path for song " + songName + ": " + destPath);
             SongLabel.setText(songName);
 
             try {
@@ -321,6 +323,8 @@ public class Controller implements Initializable, ListController.SongClickListen
                 media = new Media(path.toUri().toString());
                 mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.play();
+                mediaPlayer.setVolume(currentVolume);
+                beginTimer();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -427,17 +431,20 @@ public class Controller implements Initializable, ListController.SongClickListen
         boolean playing = mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING);
         if (playing){
             mediaPlayer.pause();
+            beginTimer();
+
             FontAwesomeIconView iconView = (FontAwesomeIconView) playButton.getGraphic();
             iconView.setGlyphName("PLAY");
 
         }else {
+            cancelTimer();
             mediaPlayer.play();
             FontAwesomeIconView iconView = (FontAwesomeIconView) playButton.getGraphic();
             iconView.setGlyphName("PAUSE");
 
         }
     }
-
+    Thread t1 = new Thread();
     public void ytdownload(ActionEvent event) {
         RapidApiResponse.extractVideoInfo(ytLink.getText(), this);
     }
@@ -463,12 +470,17 @@ public class Controller implements Initializable, ListController.SongClickListen
                     System.err.println("Failed to create directory: " + directoryPath);
                 }
             }
-            try {
-                downloadSong(response.getLink(), destPath);
-                System.out.println("Song downloaded successfully!");
-            } catch (IOException e) {
-                System.err.println("Error downloading the song: " + e.getMessage());
-            }
+            Thread downloadThread = new Thread(() -> {
+                try {
+                    downloadSong(response.getLink(), destPath);
+                    System.out.println("Song downloaded successfully!");
+                } catch (IOException e) {
+                    System.err.println("Error downloading the song: " + e.getMessage());
+                }
+            });
+
+            // Start the thread
+            downloadThread.start();
             AppConfig.saveConfig("song", songNameToAdd, imageLinkToAdd, destPath);
 
 
@@ -480,6 +492,29 @@ public class Controller implements Initializable, ListController.SongClickListen
 
     public void exDownload(ActionEvent event) {
         oDownloads.toFront();
+
+    }
+    public void beginTimer(){
+         timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                run = true;
+                 double current = mediaPlayer.getCurrentTime().toSeconds();
+                 double end = media.getDuration().toSeconds();
+                songBar.setProgress(current/end);
+                if (current/end == 1){
+                    cancelTimer();
+                }
+
+            }
+        };
+        timer.scheduleAtFixedRate(task,1000,1000);
+    }
+    public void cancelTimer(){
+        run = false;
+        timer.cancel();
+
 
     }
 }
