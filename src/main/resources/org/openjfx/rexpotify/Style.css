@@ -1,0 +1,79 @@
+.parent{
+    -fx-background-color: #1C1C1C;
+}
+.sidebar{
+    -fx-background-color: #121212;
+    -fx-background-radius: 50px;
+}
+
+.test{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-width: 2px;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+
+}
+.botbar{
+    -fx-background-color: #121212;
+}
+.search{
+    -fx-background-color: transparent;
+    -fx-text-fill: #a0a0a0;
+    -fx-border-width: 2px;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+
+}
+.panebox{
+    -fx-background-color: #191919;
+    -fx-background-radius: 10px;
+
+}
+.userimg{
+    -fx-border-radius: 50px;
+}
+.panebox:hover{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+
+
+
+}
+.searchpane{
+    -fx-background-color: #1C1C1C;
+
+}
+.search:hover{
+    -fx-text-fill: #e5e5e5;
+    -fx-show-delay: 250ms;
+
+}
+.textsearch{
+    -fx-border-radius: 100px;
+
+
+}
+.imageview{
+    -fx-border-radius: 100px;
+
+}
+/* Hide both vertical and horizontal scroll bars */
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal {
+    -fx-opacity: 0;
+}
+
+/* Enable scrolling with the mouse wheel */
+.scroll-pane .viewport {
+    -fx-background-color: #1C1C1C;
+}
+
+/* Remove padding and margin to eliminate remaining white space */
+.scroll-pane .viewport,
+.scroll-pane .content,
+.scroll-pane {
+    -fx-padding: 0;
+    -fx-margin: 0;
+    -fx-background-color: #1C1C1C;
+    -fx-border-color: transparent;
+}
