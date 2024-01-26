@@ -107,34 +107,6 @@
             </VBox>
          </children>
       </Pane>
-      <Pane fx:id="librarryPane" layoutX="289.0" prefHeight="565.0" prefWidth="991.0" styleClass="parent" stylesheets="@Style.css">
-         <children>
-            <ScrollPane layoutX="72.0" layoutY="124.0" prefHeight="427.0" prefWidth="848.0" style="-fx-background-color: #1C1C1C;">
-               <content>
-                  <VBox fx:id="listView" alignment="CENTER" prefHeight="82.0" prefWidth="842.0" style="-fx-background-color: #1C1C1C;" />
-               </content>
-            </ScrollPane>
-            <HBox alignment="CENTER_LEFT" layoutX="72.0" layoutY="61.0" prefHeight="63.0" prefWidth="848.0" style="-fx-background-color: #1C1C1C;">
-               <children>
-                  <Label fx:id="songName11" prefHeight="33.0" prefWidth="268.0" style="-fx-alignment: center;" text="Title" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="Microsoft PhagsPa Bold" size="26.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="songName111" prefHeight="33.0" prefWidth="268.0" style="-fx-alignment: center;" text="Artist" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="Microsoft PhagsPa Bold" size="26.0" />
-                     </font>
-                  </Label>
-                  <FontAwesomeIconView fill="WHITE" glyphName="SPINNER" size="2.5em" textAlignment="RIGHT">
-                     <HBox.margin>
-                        <Insets left="115.0" />
-                     </HBox.margin>
-                  </FontAwesomeIconView>
-               </children>
-            </HBox>
-         </children>
-      </Pane>
       <Pane fx:id="searchpane" layoutX="298.0" layoutY="11.0" prefHeight="558.0" prefWidth="980.0" styleClass="searchpane">
          <children>
             <VBox alignment="CENTER" layoutX="24.0" layoutY="120.0" prefHeight="219.0" prefWidth="175.0" styleClass="panebox">
@@ -278,7 +250,7 @@
                                  <children>
                                     <ImageView fx:id="artistp1" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../java/org/openjfx/rexpotify/icons/ariana.png" />
+                                          <Image url="@../../../ariana.png" />
                                        </image>
                                     </ImageView>
                                     <Label text="Ariana Grande" textFill="WHITE">
@@ -292,7 +264,7 @@
                                  <children>
                                     <ImageView fx:id="artistp2" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../java/org/openjfx/rexpotify/icons/ariana.png" />
+                                          <Image url="@../../../ariana.png" />
                                        </image>
                                     </ImageView>
                                     <Label text="Ariana Grande" textFill="WHITE">
@@ -306,7 +278,7 @@
                                  <children>
                                     <ImageView fx:id="artistp3" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../java/org/openjfx/rexpotify/icons/ariana.png" />
+                                          <Image url="@../../../ariana.png" />
                                        </image>
                                     </ImageView>
                                     <Label text="Ariana Grande" textFill="WHITE">
@@ -320,7 +292,7 @@
                                  <children>
                                     <ImageView fx:id="artistp4" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../java/org/openjfx/rexpotify/icons/ariana.png" />
+                                          <Image url="@../../../ariana.png" />
                                        </image>
                                     </ImageView>
                                     <Label text="Ariana Grande" textFill="WHITE">
@@ -343,6 +315,63 @@
             </ScrollPane>
          </children>
       </Pane>
+      <Pane layoutX="-6.0" layoutY="570.0" prefHeight="150.0" prefWidth="1286.0" styleClass="botbar" stylesheets="@Style.css">
+         <children>
+            <Button fx:id="forward" layoutX="685.0" layoutY="85.0" mnemonicParsing="false" onAction="#forward" prefHeight="39.0" prefWidth="71.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="FORWARD" />
+               </graphic>
+            </Button>
+            <Button fx:id="playButton" layoutX="608.0" layoutY="85.0" mnemonicParsing="false" onAction="#playButton" prefHeight="39.0" prefWidth="71.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PLAY" />
+               </graphic></Button>
+            <Label fx:id="SongLabel" alignment="CENTER" layoutX="499.0" layoutY="14.0" prefHeight="39.0" prefWidth="288.0" text="Song" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
+            <ProgressBar fx:id="songBar" layoutX="434.0" layoutY="60.0" prefHeight="18.0" prefWidth="419.0" progress="0.0" />
+            <Button fx:id="backwards" layoutX="528.0" layoutY="85.0" mnemonicParsing="false" onAction="#backwards" prefHeight="39.0" prefWidth="71.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="BACKWARD" />
+               </graphic>
+            </Button>
+            <Slider fx:id="volumeSlider" layoutX="1094.0" layoutY="68.0" value="50.0" />
+         </children></Pane>
+      <Pane fx:id="librarryPane" layoutX="289.0" prefHeight="565.0" prefWidth="991.0" styleClass="parent" stylesheets="@Style.css">
+         <children>
+            <ScrollPane prefHeight="565.0" prefWidth="991.0">
+               <content>
+                  <Pane prefHeight="562.0" prefWidth="991.0">
+                     <children>
+                        <Pane layoutY="77.0" prefHeight="490.0" prefWidth="991.0">
+                           <children>
+                              <ScrollPane layoutY="-2.0" prefHeight="490.0" prefWidth="991.0">
+                                 <content>
+                                    <VBox fx:id="listView" alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="988.0" style="-fx-background-color: #1C1C1C;" />
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </Pane>
+                        <HBox alignment="CENTER_LEFT" layoutX="6.0" layoutY="14.0" prefHeight="63.0" prefWidth="980.0" style="-fx-background-color: #1C1C1C;">
+                           <children>
+                              <Label fx:id="songName11" prefHeight="33.0" prefWidth="268.0" style="-fx-alignment: center;" text="Title" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                                 <font>
+                                    <Font name="Microsoft PhagsPa Bold" size="26.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="50.0" right="80.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
       <Pane fx:id="oDownloads" layoutX="299.0" layoutY="10.0" prefHeight="558.0" prefWidth="980.0" styleClass="parent" stylesheets="@Style.css">
          <children>
             <HBox fx:id="searchbox11" alignment="CENTER_LEFT" layoutX="197.0" prefHeight="56.0" prefWidth="319.0" spacing="20.0">
@@ -358,7 +387,7 @@
                   <Insets left="30.0" />
                </padding>
             </HBox>
-            <ScrollPane layoutY="68.0" prefHeight="518.0" prefWidth="973.0" style="-fx-background-color: #1C1C1C;" styleClass="scrollpane">
+            <ScrollPane layoutY="68.0" prefHeight="490.0" prefWidth="973.0" style="-fx-background-color: #1C1C1C;" styleClass="scrollpane">
                <content>
                   <Pane prefHeight="732.0" prefWidth="973.0">
                      <children>
@@ -449,57 +478,137 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button mnemonicParsing="false">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="PLAY" />
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="ytMusicDownload1" mnemonicParsing="false" onAction="#ytMusicDownload1">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="DOWNLOAD" text="" />
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
                                  </children>
                                  <padding>
                                     <Insets top="10.0" />
                                  </padding>
                               </VBox>
-                              <VBox layoutX="246.0" layoutY="269.0" prefHeight="172.0" prefWidth="276.0" spacing="20.0">
-                                 <children>
-                                    <Label fx:id="ytn3" prefHeight="25.0" prefWidth="298.0" text="Name" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="ytc3" prefHeight="25.0" prefWidth="298.0" text="Name" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
-                              </VBox>
-                              <VBox layoutX="723.0" layoutY="50.0" prefHeight="172.0" prefWidth="243.0" spacing="20.0">
+                              <VBox layoutX="246.0" layoutY="245.0" prefHeight="172.0" prefWidth="274.0" spacing="20.0">
                                  <children>
                                     <Label fx:id="ytn2" prefHeight="25.0" prefWidth="298.0" text="Name" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="ytc2" prefHeight="25.0" prefWidth="298.0" text="Name" textFill="WHITE">
+                                    <Label fx:id="ytc11" prefHeight="25.0" prefWidth="298.0" text="Name" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button mnemonicParsing="false">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="PLAY" />
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="ytMusicDownload2" mnemonicParsing="false" onAction="#ytMusicDownload2">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="DOWNLOAD" text="" />
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
                                  </children>
                                  <padding>
                                     <Insets top="10.0" />
                                  </padding>
                               </VBox>
-                              <VBox layoutX="723.0" layoutY="269.0" prefHeight="172.0" prefWidth="243.0" spacing="20.0">
+                              <VBox layoutX="723.0" layoutY="50.0" prefHeight="172.0" prefWidth="251.0" spacing="20.0">
+                                 <children>
+                                    <Label fx:id="ytn3" prefHeight="25.0" prefWidth="298.0" text="Name" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="ytc12" prefHeight="25.0" prefWidth="298.0" text="Name" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button mnemonicParsing="false">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="PLAY" />
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="ytMusicDownload3" mnemonicParsing="false" onAction="#ytMusicDownload3">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="DOWNLOAD" text="" />
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox layoutX="723.0" layoutY="269.0" prefHeight="172.0" prefWidth="249.0" spacing="20.0">
                                  <children>
                                     <Label fx:id="ytn4" prefHeight="25.0" prefWidth="298.0" text="Name" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="ytc4" prefHeight="25.0" prefWidth="298.0" text="Name" textFill="WHITE">
+                                    <Label fx:id="ytc13" prefHeight="25.0" prefWidth="298.0" text="Name" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button mnemonicParsing="false">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="PLAY" />
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="ytMusicDownload4" mnemonicParsing="false" onAction="#ytMusicDownload4">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="DOWNLOAD" text="" />
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
                                  </children>
                                  <padding>
                                     <Insets top="10.0" />
@@ -513,29 +622,5 @@
             </ScrollPane>
          </children>
       </Pane>
-      <Pane layoutX="-6.0" layoutY="570.0" prefHeight="150.0" prefWidth="1286.0" styleClass="botbar" stylesheets="@Style.css">
-         <children>
-            <Button fx:id="forward" layoutX="685.0" layoutY="85.0" mnemonicParsing="false" onAction="#forward" prefHeight="39.0" prefWidth="71.0">
-               <graphic>
-                  <FontAwesomeIconView glyphName="FORWARD" />
-               </graphic>
-            </Button>
-            <Button fx:id="playButton" layoutX="608.0" layoutY="85.0" mnemonicParsing="false" onAction="#playButton" prefHeight="39.0" prefWidth="71.0">
-               <graphic>
-                  <FontAwesomeIconView glyphName="PLAY" />
-               </graphic></Button>
-            <Label fx:id="SongLabel" alignment="CENTER" layoutX="499.0" layoutY="14.0" prefHeight="39.0" prefWidth="288.0" text="Song" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="31.0" />
-               </font>
-            </Label>
-            <ProgressBar fx:id="songBar" layoutX="434.0" layoutY="60.0" prefHeight="18.0" prefWidth="419.0" progress="0.0" />
-            <Button fx:id="backwards" layoutX="528.0" layoutY="85.0" mnemonicParsing="false" onAction="#backwards" prefHeight="39.0" prefWidth="71.0">
-               <graphic>
-                  <FontAwesomeIconView glyphName="BACKWARD" />
-               </graphic>
-            </Button>
-            <Slider fx:id="volumeSlider" layoutX="1094.0" layoutY="68.0" value="50.0" />
-         </children></Pane>
    </children>
 </AnchorPane>

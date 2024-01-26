@@ -65,7 +65,6 @@
 
 /* Enable scrolling with the mouse wheel */
 .scroll-pane .viewport {
-    -fx-background-color: #1C1C1C;
 }
 
 /* Remove padding and margin to eliminate remaining white space */

@@ -3,9 +3,15 @@ package org.openjfx.rexpotify.downloaders;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openjfx.rexpotify.Api.ApiHandler;
+import org.openjfx.rexpotify.Api.ApiKeys;
 import org.openjfx.rexpotify.Api.ApiResponseParser;
 
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +21,16 @@ public class YTSearch {
     String apiUrl;
 
     public YTSearch(String name ){
-        //Hello
-        apiUrl = "https://www.googleapis.com/youtube/v3/search?key=AIzaSyDfPXBb1TN4MZWWdERBNjXLwm69fXQoS8Q&q="+name+"&type=video&part=snippet&category=music";
+        apiUrl = "https://www.googleapis.com/youtube/v3/search?key="+ ApiKeys.ytToken +"="+name+"&type=video&part=snippet&category=music";
+
+    }
+    public YTSearch(){
 
     }
 
     public List<String> videoID() throws Exception {
 
         String apiResponse = apiHandler.makeApiRequest(apiUrl);
-        ObjectMapper objectMapper = new ObjectMapper();
         JsonNode parsedResponse = responseParser.parseJson(apiResponse);
 
         List<String> videoIDs = new ArrayList<>();
@@ -96,5 +103,28 @@ public class YTSearch {
         return thumbnail;
 
 
+    }
+
+    public String youtube(String videoID) {
+        //D27cE0ubMM4
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://youtube-mp36.p.rapidapi.com/dl?id=" + videoID))
+                    .header("X-RapidAPI-Key", "e29d4f4bb9msh85dc38487359681p17609cjsn1d7659c8cf02")
+                    .header("X-RapidAPI-Host", "youtube-mp36.p.rapidapi.com")
+                    .method("GET", HttpRequest.BodyPublishers.noBody())
+                    .build();
+
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+            RapidApiResponse rapidApiResponse = RapidApiResponse.fromJson(response.body());
+
+            return rapidApiResponse.getLink();
+
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return videoID;
     }
 }

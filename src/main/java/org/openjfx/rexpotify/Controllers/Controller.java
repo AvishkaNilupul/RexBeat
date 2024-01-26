@@ -453,7 +453,6 @@ public class Controller implements Initializable, ListController.SongClickListen
 
         }
     }
-    Thread t1 = new Thread();
     public void ytdownload(ActionEvent event) {
         RapidApiResponse.extractVideoInfo(ytLink.getText(), this);
     }
@@ -527,6 +526,12 @@ public class Controller implements Initializable, ListController.SongClickListen
 
 
     }
+    List<String> videoIDs = new ArrayList<>();
+    List<String> name = new ArrayList<>();
+    YTSearch ytSearch;
+
+
+
 
 
     public void ytseachpress2(ActionEvent actionEvent) throws Exception {
@@ -535,20 +540,47 @@ public class Controller implements Initializable, ListController.SongClickListen
             System.out.println("error");
 
         }else {
-            YTSearch ytSearch = new YTSearch(serchText);
-            List<String> name = ytSearch.videoNames();
-            List<String> thumbnails = ytSearch.thumbnails();
-            ytn1.setText(name.get(0));
-            ytn2.setText(name.get(1));
-            ytn3.setText(name.get(2));
-            ytn4.setText(name.get(3));
-            ytvt1.setImage(new Image(thumbnails.get(0)));
-            ytvt2.setImage(new Image(thumbnails.get(1)));
-            ytvt3.setImage(new Image(thumbnails.get(2)));
-            ytvt4.setImage(new Image(thumbnails.get(3)));
-
+                    YTSearch ytSearch = new YTSearch(serchText);
+                    name = ytSearch.videoNames();
+                    videoIDs = ytSearch.videoID();
+                    System.out.println(videoIDs);
+                    List<String> thumbnails = ytSearch.thumbnails();
+                    ytn1.setText(name.get(0));
+                    ytn2.setText(name.get(1));
+                    ytn3.setText(name.get(2));
+                    ytn4.setText(name.get(3));
+                    ytvt1.setImage(new Image(thumbnails.get(0)));
+                    ytvt2.setImage(new Image(thumbnails.get(1)));
+                    ytvt3.setImage(new Image(thumbnails.get(2)));
+                    ytvt4.setImage(new Image(thumbnails.get(3)));
 
 
         }
     }
+    public void ytMusicDownload1(ActionEvent actionEvent) throws URISyntaxException, IOException {
+            downloadAndSaveSong(0);
+
+
+    }
+    public void ytMusicDownload2(ActionEvent actionEvent) throws URISyntaxException, IOException {
+        downloadAndSaveSong(1);
+    }
+    public void ytMusicDownload3(ActionEvent actionEvent) throws URISyntaxException, IOException {
+        downloadAndSaveSong(2);
+    }
+    public void ytMusicDownload4(ActionEvent actionEvent) throws URISyntaxException, IOException {
+        downloadAndSaveSong(3);
+    }
+    public void downloadAndSaveSong(int index) throws URISyntaxException, IOException {
+        YTSearch ytSearch = new YTSearch();
+        String link = ytSearch.youtube(videoIDs.get(index));
+        String jarDir = new File(Controller.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getPath();
+        String songNameToAdd = name.get(index);
+        String destPath = jarDir + File.separator + "songs" + File.separator + songNameToAdd + ".mp3";
+        downloadSong(link, destPath);
+        String imageLinkToAdd = "NotAvailable";
+        AppConfig.saveConfig("song", songNameToAdd, imageLinkToAdd, destPath);
+    }
+
+
 }
