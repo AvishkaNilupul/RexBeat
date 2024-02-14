@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -23,15 +21,12 @@ import org.openjfx.rexpotify.Api.ApiHandler;
 import org.openjfx.rexpotify.Api.ApiResponseParser;
 import org.openjfx.rexpotify.AppConfig;
 import org.openjfx.rexpotify.downloaders.RapidApiResponse;
-import org.openjfx.rexpotify.downloaders.VideoInfoCallback;
 import org.openjfx.rexpotify.downloaders.YTSearch;
 import org.openjfx.rexpotify.models.Slist;
 import org.openjfx.rexpotify.models.Song;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-
 import java.io.*;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -50,7 +45,7 @@ public class Controller implements Initializable, ListController.SongClickListen
     public Button exDownload;
     public Label ytSearch12;
     public Button ytseachpress2;
-    public Label ytn1,ytn2,ytn3,ytn4,ytc1,ytc2,ytc3,ytc4;
+    public Label ytn1,ytn2,ytn3,ytn4,ytc1;
     public ImageView ytvt1,ytvt2,ytvt3,ytvt4;
     boolean run;
     Timer timer;
@@ -59,7 +54,7 @@ public class Controller implements Initializable, ListController.SongClickListen
     public ProgressBar songBar;
 
     @FXML
-    private ImageView mainArtist, artistp1, artistp2, artistp3, artistp4;
+    private ImageView mainArtist;
     @FXML
     private Pane searchpane, artistpane,networkPane;
     @FXML
@@ -75,11 +70,22 @@ public class Controller implements Initializable, ListController.SongClickListen
 
     public static String Slink;
     double currentVolume = 50;
+    String songApi = "http://157.245.148.29:8080/api/songs/by-song-name/";
+
+    List<String> videoIDs = new ArrayList<>();
+    List<String> name = new ArrayList<>();
+    String jarDir = null;
+
+    String FilePath;
+    public void Controller() throws URISyntaxException {
+        this.FilePath = new File(Controller.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getPath();
+
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        String jarDir = null;
         try {
             jarDir = new File(Controller.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getPath();
         } catch (URISyntaxException e) {
@@ -128,17 +134,17 @@ public class Controller implements Initializable, ListController.SongClickListen
         TestAdd = loadSongsFromConfig(); // Set TestAdd to the loaded songs
 
         try {
-            for (int i = 0; i < TestAdd.size(); i++) {
+            for (Slist slist : TestAdd) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/org/openjfx/rexpotify/List.fxml"));
                 HBox box = fxmlLoader.load();
                 ListController listController = fxmlLoader.getController();
-                listController.setData(TestAdd.get(i));
+                listController.setData(slist);
                 listController.setSongClickListener(this);
                 listView.getChildren().add(box);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Song loading error :"+e);
         }
     }
 
@@ -154,12 +160,12 @@ public class Controller implements Initializable, ListController.SongClickListen
                 if (key.endsWith(".songName") && prop.containsKey(key.replace(".songName", ".songLink"))) {
                     Slist slist = new Slist();
                     slist.setName(prop.getProperty(key));
-                    slist.setImageSrc(prop.getProperty(key.replace(".songName", ".songLink")));  // Corrected line
+                    slist.setImageSrc(prop.getProperty(key.replace(".songName", ".songLink")));
                     songs.add(slist);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("error loading from Config : "+e);
         }
 
         return songs;
@@ -174,10 +180,9 @@ public class Controller implements Initializable, ListController.SongClickListen
                 searchpane.toFront();
                 searchbox1.toFront();
 
-                // api
                 ApiHandler apiHandler = new ApiHandler();
                 ApiResponseParser responseParser = new ApiResponseParser();
-                String apiUrl = "http://157.245.148.29:8080/api/songs/by-song-name/" + text;
+                String apiUrl =  songApi+ text;
                 //http://157.245.148.29:8080/api/songs/by-song-name/side
                 String apiResponse = apiHandler.makeApiRequest(apiUrl);
 
@@ -261,7 +266,7 @@ public class Controller implements Initializable, ListController.SongClickListen
             String songLink = Slink;
 
             // Get the directory where the JAR file is located
-            String jarDir = new File(Controller.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getPath();
+            String jarDir = FilePath;
 
             // Use the obtained directory to construct the relative path
             String destPath = jarDir + File.separator + "songs" + File.separator + songNameToAdd + ".mp3";
@@ -335,7 +340,7 @@ public class Controller implements Initializable, ListController.SongClickListen
                 mediaPlayer.setVolume(currentVolume);
                 beginTimer();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Song Player Error :" +e);
             }
         } else {
             System.out.println("Destination path not found for song " + songName);
@@ -394,7 +399,7 @@ public class Controller implements Initializable, ListController.SongClickListen
             int currentIndex = getCurrentSongIndex();
             System.out.println("Current Index: " + currentIndex);
 
-            if (currentIndex != -1 && currentIndex > 0) {
+            if (currentIndex > 0) {
                 String previousSongName = TestAdd.get(currentIndex - 1).getName();
                 System.out.println("Previous Song Name: " + previousSongName);
                 playSongByName(previousSongName);
@@ -526,9 +531,7 @@ public class Controller implements Initializable, ListController.SongClickListen
 
 
     }
-    List<String> videoIDs = new ArrayList<>();
-    List<String> name = new ArrayList<>();
-    YTSearch ytSearch;
+
 
 
 
